@@ -5,9 +5,7 @@ import com.skycast.exception.ForecastNotFoundException;
 import com.skycast.model.Forecast;
 import com.skycast.repo.ForecastRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.rmi.ServerException;
 import java.time.LocalDateTime;
 import java.util.List;
 
