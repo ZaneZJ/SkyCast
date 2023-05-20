@@ -1,0 +1,79 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+@keyframes moveRight {
+    from {left: -1000px;}
+    to {left: calc(100% + 10px);}
+}
+
+@keyframes moveRight1 {
+    from {left: -2000px;}
+    to {left: calc(100% + 100px);}
+}
+
+#bg0 {
+    width: 100%;
+    height: 220px;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    background-color: gray;
+}
+
+#bg1 {
+    width: 100%;
+    position: fixed;
+    bottom: 100px;
+    right: 0px;
+}
+
+#bg2 {
+    width: 100%;
+    position: fixed;
+    bottom: 100px;
+    right: 0px;
+}
+
+#cloud1 {
+    width: 2000px;
+    position: fixed;
+    left: 0px;
+    bottom: 100px;
+    animation: moveRight1 30s linear infinite;
+}
+
+#cloud4 {
+    width: 2000px;
+    position: fixed;
+    left: 0px;
+    bottom: -200px;
+    animation: moveRight1 60s linear infinite;
+}
+
+#cloud2 {
+    width: 1000px;
+    position: fixed;
+    left: 0px;
+    bottom: 400px;
+    animation: moveRight 50s linear infinite;
+}
+
+#cloud3 {
+    width: 1000px;
+    position: fixed;
+    left: 0px;
+    bottom: 700px;
+    animation: moveRight 70s linear infinite;
+}
+
+.wearher {
+    position: absolute;
+    width: 100%;
+}
+
+#city {
+    margin-left: calc(50% - 20px);
+    margin-top: 50px;
+    font-size: 40px;
+}
