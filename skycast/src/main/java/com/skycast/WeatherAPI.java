@@ -12,6 +12,105 @@ import java.net.URL;
 
 public class WeatherAPI {
 
+    public static String getIPData() {
+        try {
+            // Create URL object
+            URL url = new URL("https://api.ipify.org/?format=json");
+
+            // Create connection
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Set request method
+            connection.setRequestMethod("GET");
+
+            // Get the response code
+            int responseCode = connection.getResponseCode();
+
+            // If the response code is 200 (HTTP_OK), read the response
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Read the response
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                // Parse the JSON response
+                JSONObject jsonResponse = new JSONObject(response.toString());
+
+                // Get the IP address from the "ip" field
+                String ipAddress = jsonResponse.getString("ip");
+
+                // Create the JSON response object
+                JSONObject jsonResult = new JSONObject();
+                jsonResult.put("ip", ipAddress);
+
+                String ip = jsonResult.getString("ip");
+                System.out.println("IP: " + ip);
+
+                return ip;
+            } else {
+                // If the response code is not 200, handle the error
+                System.out.println("Error: " + responseCode);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getCity(String ipAddress) {
+        String apiKey = "0487008b2b2846b68c32ecc621d1aba5";
+        try {
+            String url = "https://api.ipgeolocation.io/ipgeo?apiKey=" + apiKey + "&ip=" + ipAddress + "&fields=city";
+
+            // Create URL object
+            URL apiUrl = new URL(url);
+
+            // Create connection
+            HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+
+            // Set request method
+            connection.setRequestMethod("GET");
+
+            // Get the response code
+            int responseCode = connection.getResponseCode();
+
+            // If the response code is 200 (HTTP_OK), read the response
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Read the response
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = reader.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                reader.close();
+
+                // Parse the JSON response
+                JSONObject jsonResponse = new JSONObject(response.toString());
+
+                // Get the city information
+                String city = jsonResponse.getString("city");
+
+                // Print the city information
+                System.out.println("City: " + city);
+
+                return city.toLowerCase();
+            } else {
+                // If the response code is not 200, handle the error
+                System.out.println("Error: " + responseCode);
+            }
+            connection.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void getWeatherDataFromAPI(String city) {
         // no CAPS for city value
         // hardcoded from my user change 531af2461f50b8bd82618834fb7e0015 -> 174fddb83a2b27fa3d7d4c23a4487f2a
@@ -44,7 +143,7 @@ public class WeatherAPI {
         }
     }
 
-    public void getLatAndLonDataFromAPI(String city) {
+    public double[] getLatAndLonDataFromAPI(String city) {
         // no CAPS for city value
         // hardcoded from my user change 531af2461f50b8bd82618834fb7e0015 -> 174fddb83a2b27fa3d7d4c23a4487f2a
         String apiKey = "531af2461f50b8bd82618834fb7e0015";
@@ -75,7 +174,8 @@ public class WeatherAPI {
                     System.out.println("Latitude: " + lat);
                     System.out.println("Longitude: " + lon);
                     // Read Forecast Data
-                    getForecastDataFromAPI(lat, lon);
+                    double[] latLonArray = {lat, lon};
+                    return latLonArray;
                 }
             } else {
                 System.out.println("Error: " + responseCode);
@@ -84,6 +184,7 @@ public class WeatherAPI {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void getForecastDataFromAPI(double latitude, double longtitude) {

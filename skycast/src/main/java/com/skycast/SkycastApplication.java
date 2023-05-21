@@ -1,5 +1,6 @@
 package com.skycast;
 
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +15,14 @@ public class SkycastApplication {
 
 	public static void main(String[] args) {
 		WeatherAPI weatherAPI = new WeatherAPI();
-		weatherAPI.getWeatherDataFromAPI("vyborg");
-		weatherAPI.getLatAndLonDataFromAPI("vyborg");
+
+		String ipAddress = weatherAPI.getIPData();
+		String city = weatherAPI.getCity(ipAddress);
+		double[] latLonArray = weatherAPI.getLatAndLonDataFromAPI(city);
+
+		weatherAPI.getForecastDataFromAPI(latLonArray[0], latLonArray[1]);
+		weatherAPI.getWeatherDataFromAPI(city);
+
 		SpringApplication.run(SkycastApplication.class, args);
 	}
 
