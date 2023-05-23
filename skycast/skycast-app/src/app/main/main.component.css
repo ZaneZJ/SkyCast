@@ -1,5 +1,5 @@
 body {
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* BACKGROUND CSS */
@@ -201,11 +201,11 @@ body {
 /* FORECAST CHART CSS */
 
 .cardholder {
-    /* position: absolute;
-    margin-bottom: 50px; */
+    position: absolute;
+    margin-bottom: 50px;
 }
 
-/* .card {
+.card {
     background-color: #fff;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     position: absolute;
@@ -299,4 +299,4 @@ body {
   .value.value--this {
     color: #5555FF;
     font-weight: bold;
-  } */
+  }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ForecastService } from './forecast.service';
-import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ export class AppComponent {
 
   constructor(private forecastService: ForecastService) {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
+  
 }
