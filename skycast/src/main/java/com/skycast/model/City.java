@@ -1,11 +1,10 @@
 package com.skycast.model;
 
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,18 +14,19 @@ public class City {
 
     @Id
     @Column(name = "id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "latitude", nullable = false)
+    @Column(name = "latitude")
     private BigDecimal latitude;
 
-    @Column(name = "longitude", nullable = false)
+    @Column(name = "longitude")
     private BigDecimal longitude;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "country")
     private String country;
 
     @Column(name = "population")

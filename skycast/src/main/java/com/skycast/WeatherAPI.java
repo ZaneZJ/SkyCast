@@ -1,8 +1,10 @@
 package com.skycast;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,9 +12,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@Component
 public class WeatherAPI {
 
-    public static String getIPData() {
+    public String getIPData(HttpServletRequest request) {
+        if(!request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")) {
+            return request.getRemoteAddr();
+        }
+        // This currently gets the ip address from the backend user
         try {
             // Create URL object
             URL url = new URL("https://api.ipify.org/?format=json");

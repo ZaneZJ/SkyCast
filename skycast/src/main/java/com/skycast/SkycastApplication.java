@@ -3,25 +3,31 @@ package com.skycast;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
 
+@EntityScan("com.skycast")
+@EnableJpaRepositories
 @SpringBootApplication
 public class SkycastApplication {
 
 	public static void main(String[] args) {
-		WeatherAPI weatherAPI = new WeatherAPI();
+//		WeatherAPI weatherAPI = new WeatherAPI();
+//
+//		String ipAddress = weatherAPI.getIPData();
+//		String city = weatherAPI.getCity(ipAddress);
+//		double[] latLonArray = weatherAPI.getLatAndLonDataFromAPI(city);
+//
+//		weatherAPI.getForecastDataFromAPI(latLonArray[0], latLonArray[1]);
+//		weatherAPI.getWeatherDataFromAPI(city);
 
-		String ipAddress = weatherAPI.getIPData();
-		String city = weatherAPI.getCity(ipAddress);
-		double[] latLonArray = weatherAPI.getLatAndLonDataFromAPI(city);
-
-		weatherAPI.getForecastDataFromAPI(latLonArray[0], latLonArray[1]);
-		weatherAPI.getWeatherDataFromAPI(city);
+		System.setProperty("java.net.preferIPv4Stack" , "true");
 
 		SpringApplication.run(SkycastApplication.class, args);
 	}

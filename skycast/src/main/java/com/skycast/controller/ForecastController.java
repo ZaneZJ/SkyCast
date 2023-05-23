@@ -63,29 +63,29 @@ public class ForecastController {
 //        }
 //    }
 
-    @PostMapping
-    public Forecast addForecast(@RequestBody Forecast forecast) throws ForecastAlreadyExistsException {
-        return forecastService.addForecast(forecast);
-    }
-
-    @PutMapping("/{dtTxt}")
-    public Forecast updateForecast(@PathVariable LocalDateTime dtTxt, @RequestBody Forecast forecast) throws ForecastNotFoundException {
-        return forecastService.updateForecast(dtTxt, forecast);
-    }
-
-    @DeleteMapping("/{dtTxt}")
-    public void deleteForecast(@PathVariable LocalDateTime dtTxt) throws ForecastNotFoundException {
-        forecastService.deleteForecast(dtTxt);
-    }
-
-    @GetMapping("/{dtTxt}")
-    public Forecast getForecastByDtTxt(@PathVariable LocalDateTime dtTxt) throws ForecastNotFoundException {
-        return forecastService.getForecastByDtTxt(dtTxt);
-    }
-
-    @GetMapping
-    public List<Forecast> getAllForecasts() {
-        return forecastService.getAllForecasts();
-    }
+//    @PostMapping
+//    public Forecast addForecast(@RequestBody Forecast forecast) throws ForecastAlreadyExistsException {
+//        return forecastService.addForecast(forecast);
+//    }
+//
+//    @PutMapping("/{dtTxt}")
+//    public Forecast updateForecast(@PathVariable LocalDateTime dtTxt, @RequestBody Forecast forecast) throws ForecastNotFoundException {
+//        return forecastService.updateForecast(dtTxt, forecast);
+//    }
+//
+//    @DeleteMapping("/{dtTxt}")
+//    public void deleteForecast(@PathVariable LocalDateTime dtTxt) throws ForecastNotFoundException {
+//        forecastService.deleteForecast(dtTxt);
+//    }
+//
+//    @GetMapping("/{dtTxt}")
+//    public Forecast getForecastByDtTxt(@PathVariable LocalDateTime dtTxt) throws ForecastNotFoundException {
+//        return forecastService.getForecastByDtTxt(dtTxt);
+//    }
+//
+//    @GetMapping
+//    public List<Forecast> getAllForecasts() {
+//        return forecastService.getAllForecasts();
+//    }
 
 }
