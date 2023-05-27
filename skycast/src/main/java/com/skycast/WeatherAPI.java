@@ -16,7 +16,10 @@ import java.net.URL;
 public class WeatherAPI {
 
     public String getIPData(HttpServletRequest request) {
+        // Localhost cred -> 0:0:0:0:0:0:0:1
         if(!request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")) {
+            // If not on the localhost then would return the remote address
+            // Of the user accessing on the browser
             return request.getRemoteAddr();
         }
         // This currently gets the ip address from the backend user
@@ -192,6 +195,37 @@ public class WeatherAPI {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void getForecastDataFromAPI16(double latitude, double longtitude) {
+        // api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
+        String apiKey = "531af2461f50b8bd82618834fb7e0015";
+        String url = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + latitude + "&lon=" + longtitude + "&cnt=16&appid=" + apiKey;
+
+        try {
+            URL apiUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+            connection.setRequestMethod("GET");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                StringBuilder response = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                System.out.println(response.toString());
+            } else {
+                System.out.println("Error: " + responseCode);
+            }
+            connection.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void getForecastDataFromAPI(double latitude, double longtitude) {
