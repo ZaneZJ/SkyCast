@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Chart, ChartItem, ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-main',
@@ -7,6 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
+
+  // FORECAST CHART
+
+  public chart: any;
 
   // HUMIDITY CHART
 
@@ -28,6 +33,95 @@ export class MainComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+    this.createChart();
+  }
+
+  // FORECAST CHART
+
+  createChart(){
+    let canvas = document.getElementById("canvas") as HTMLCanvasElement | null;
+
+    console.log('Canvas:', canvas); // Log canvas element
+    
+    if (!canvas) {
+      console.error('Unable to find canvas element');
+      return;
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      console.error('Unable to get 2d context');
+      return;
+    }
+    
+    // Apply multiply blend when drawing datasets
+    let multiply = {
+      id: 'multiplyPlugin', // Unique string id for the plugin
+      beforeDatasetsDraw: function(chart: Chart, options: any) {
+        chart.ctx.globalCompositeOperation = 'multiply';
+      },
+      afterDatasetsDraw: function(chart: Chart, options: any) {
+        chart.ctx.globalCompositeOperation = 'source-over';
+      },
+    };
+
+    // Gradient color - this week plus
+    let gradientPlus = ctx.createLinearGradient(0, 0, 0, 400);
+    gradientPlus.addColorStop(0, '#e3bf97b3');
+    gradientPlus.addColorStop(1, '#938b87');
+
+    // Gradient color - this week minus
+    let gradientMinus = ctx.createLinearGradient(0, 0, 0, 400);
+    gradientMinus.addColorStop(0, '#7d7dd8');
+    gradientMinus.addColorStop(1, '#babaee70');
+
+    let config: ChartConfiguration = {
+      type: 'line',
+      data: {
+        labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+        datasets: [
+          {
+            label: 'plus',
+            data: [24, 18, -10, 18, 24, 36, 28, 24, 18, 16, 18, 24, 36, 28],
+            fill: true,
+            backgroundColor: gradientPlus,
+            borderColor: 'transparent'
+          },
+          {
+            label: 'minus',
+            data: [0, -18, 10, -18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            fill: true,
+            backgroundColor: gradientMinus,
+            borderColor: 'transparent'
+          }
+        ]
+      },
+      options: {
+        elements: { 
+            line: {
+              tension: 0.4  
+            },
+          point: {
+            radius: 0,
+            hitRadius: 0, 
+            hoverRadius: 0 
+          } 
+        },
+        scales: {
+          x: { display: false },
+          y: {
+            display: false,
+            beginAtZero: true,
+          }
+        }
+      },
+      plugins: [multiply],
+    };
+
+    console.log('Config:', config); // Log config
+
+    this.chart = new Chart(ctx, config);
+  }
 
 }
