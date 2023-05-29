@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Chart, ChartItem, ChartConfiguration } from 'chart.js';
+import { ApiService } from '../api.service';
+import { ApiData } from '../apidata';
 
 @Component({
   selector: 'app-main',
@@ -12,6 +14,7 @@ export class MainComponent implements OnInit {
   // FORECAST CHART
 
   public chart: any;
+  apiData: ApiData | undefined;
 
   // HUMIDITY CHART
 
@@ -31,10 +34,28 @@ export class MainComponent implements OnInit {
     domain: ['black', 'rgba(187, 187, 187, 0.589)']
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService
+    ) { 
+    
+    // this.apiData = ;
+
+    this.apiService.getCurrentData().subscribe({
+      next: data => {
+        this.apiData = data;
+        console.log(data);
+      },
+      error: console.error
+    });
+
+
+  }
 
   ngOnInit(): void {
+
     this.createChart();
+
   }
 
   // FORECAST CHART
@@ -83,14 +104,14 @@ export class MainComponent implements OnInit {
         datasets: [
           {
             label: 'plus',
-            data: [24, 18, -10, 18, 24, 36, 28, 24, 18, 16, 18, 24, 36, 28],
+            data: [24, 18, 0, 18, 24, 36, 28, 24, 18, 16, 18, 24, 36, 28],
             fill: true,
             backgroundColor: gradientPlus,
             borderColor: 'transparent'
           },
           {
             label: 'minus',
-            data: [0, -18, 10, -18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            data: [0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             fill: true,
             backgroundColor: gradientMinus,
             borderColor: 'transparent'

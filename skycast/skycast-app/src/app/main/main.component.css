@@ -39,7 +39,6 @@ body {
 #bg1 {
     width: 100%;
     position: fixed;
-    /* bottom: 100px; */
     bottom: -5px;
     right: 0px;
 }
@@ -47,7 +46,6 @@ body {
 #bg2 {
     width: 100%;
     position: fixed;
-    /* bottom: 100px; */
     bottom: -5px;
     right: 0px;
 }
@@ -245,14 +243,14 @@ body {
 
 .axis .tick:hover {
   opacity: 1;
-  background-color: rgba(204, 204, 204, 0.103);
+  background-image: linear-gradient(to bottom, transparent, rgba(204, 204, 204, 0.103));
 }
 
 .axis .tick .value {
   transform: translateY(-40px);
   transition: 0.3s transform;
   position: absolute;
-  top: 10px;
+  top: 25px;
   color: #fff;
   border-radius: 2px;
   width: 100%;
@@ -262,4 +260,4 @@ body {
 .axis .tick:hover .value.value--this {
   transform: translateY(0);
   display: block;
-}
+} 
