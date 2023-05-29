@@ -15,7 +15,7 @@ public class City {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -29,16 +29,7 @@ public class City {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "population")
-    private Integer population;
-
-    @Column(name = "timezone")
-    private Integer timezone;
-
-    @Column(name = "sunrise")
-    private Long sunrise;
-
-    @Column(name = "sunset")
-    private Long sunset;
+    @Column(name = "ip")
+    private String ip;
 
 }
