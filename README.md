@@ -28,6 +28,10 @@ On the top part of the app data is coming from Current Weather Data API, but the
 
 ![Demo](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmRiYWI0YjUyZDBjODM3OWU1Zjk5ZTI0OTBmYmU3NWI3Njk3NTJhMyZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/Kmv0dtrk42zoAs2wYy/giphy.gif)
 
+In case if temperature would be negative then the chart would be displayed in blue.
+Note that this data is modified to show the possible scenario:
+![image](https://github.com/ZaneZJ/SkyCast/assets/76492358/7c0b7584-e3e3-4b4e-84de-e3f83969e1ab)
+
 ### Testing:
 
 ![Demo](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWMwYzYwOWFhZGZlMmY2YTA0Y2Y5MTBlYzJhZmRjMmQ2NTU2MmRmZSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/x2Vn82qJmdbbO7uOJI/giphy.gif)
