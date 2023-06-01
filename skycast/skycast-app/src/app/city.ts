@@ -1,4 +1,5 @@
 export interface City {
+
     id: number;
     name: string;
     latitude: number;
@@ -6,4 +7,5 @@ export interface City {
     country: string;
     timezone: number;
     ip: string;
+    
 }

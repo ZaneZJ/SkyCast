@@ -93,6 +93,7 @@ body {
     margin-left: calc(50% - 55px);
     margin-top: 50px;
     font-size: 40px;
+    text-transform: uppercase;
 }
 
 /* HUMIDITY CHART CSS */
@@ -144,16 +145,20 @@ body {
 
 #currenttemp {
   position: absolute;
-  margin-left: 720px;
+  margin-left: 770px;
   margin-top: -250px;
   font-size: 80px;
 }
 
 #calsius {
     position: absolute;
-    margin-left: 810px;
+    margin-left: 870px;
     margin-top: -220px;
     font-size: 40px;
+}
+
+.temperature h2 {
+  text-transform: uppercase;
 }
 
 /* SUNRISE/SUNSET INFO CSS */
@@ -187,7 +192,7 @@ body {
 /* WIND INFO CSS */
 
 .wind {
-  margin-left: 720px;
+  margin-left: 770px;
   margin-top: -150px;
   color: #8f8f8f;
 }
@@ -202,7 +207,6 @@ body {
 
 .card {
   background-color: transparent;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
   position: absolute;
   bottom: 0px;
   left: 50%;
@@ -213,7 +217,7 @@ body {
 }
 
 .about {
-  margin-bottom: -80px;
+  margin-bottom: -45px;
 }
 
 .legend--this {

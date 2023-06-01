@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main/main.component';
-import { ForecastService } from './forecast.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgChartsModule } from 'ng2-charts';
+import { ApiService } from './api.service';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NgChartsModule } from 'ng2-charts';
     NgChartsModule
   ],
   providers: [
-    ForecastService
+    ApiService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

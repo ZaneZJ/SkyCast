@@ -23,7 +23,7 @@
     </div>
 
     <div class="weather">
-      <h1 id="city">RIGA</h1>
+      <h1 id="city">{{city}}</h1>
 
       <div class="humidity">
         <ngx-charts-pie-chart
@@ -35,34 +35,34 @@
           [labels]="false"
           [doughnut]="true">
         </ngx-charts-pie-chart>
-        <h2>34%</h2>
+        <h2>{{humidity}}%</h2>
         <p>HUMIDITY</p>
       </div>
 
       <div id="line"></div>
 
       <div class="temperature">
-        <h2>SUNDAY 21</h2>
+        <h2>{{currentDate}}</h2>
 
         <div class="suninfo">
           <!-- icons taken from - https://icons.getbootstrap.com/ -->
           <svg id="sunrise" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-sunrise" viewBox="0 0 16 16">
             <path d="M7.646 1.146a.5.5 0 0 1 .708 0l1.5 1.5a.5.5 0 0 1-.708.708L8.5 2.707V4.5a.5.5 0 0 1-1 0V2.707l-.646.647a.5.5 0 1 1-.708-.708l1.5-1.5zM2.343 4.343a.5.5 0 0 1 .707 0l1.414 1.414a.5.5 0 0 1-.707.707L2.343 5.05a.5.5 0 0 1 0-.707zm11.314 0a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zM8 7a3 3 0 0 1 2.599 4.5H5.4A3 3 0 0 1 8 7zm3.71 4.5a4 4 0 1 0-7.418 0H.499a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-3.79zM0 10a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 10zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
           </svg>
-          <p id="sunriseinfo">4:55</p>
+          <p id="sunriseinfo">{{sunrise}}</p>
           <!-- icons taken from - https://icons.getbootstrap.com/ -->
           <svg id="sunset" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-sunset-fill" viewBox="0 0 16 16">
             <path d="M7.646 4.854a.5.5 0 0 0 .708 0l1.5-1.5a.5.5 0 0 0-.708-.708l-.646.647V1.5a.5.5 0 0 0-1 0v1.793l-.646-.647a.5.5 0 1 0-.708.708l1.5 1.5zm-5.303-.51a.5.5 0 0 1 .707 0l1.414 1.413a.5.5 0 0 1-.707.707L2.343 5.05a.5.5 0 0 1 0-.707zm11.314 0a.5.5 0 0 1 0 .706l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zM11.709 11.5a4 4 0 1 0-7.418 0H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-3.79zM0 10a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 10zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
           </svg>
-          <p id="sunsetinfo">21:45</p>
+          <p id="sunsetinfo">{{sunset}}</p>
         </div>
 
-        <p class="temp">FEELS LIKE: 20 <sup>o</sup>C</p>
-        <p class="temp">MIN TEMPERATURE: 19 <sup>o</sup>C</p>
-        <p class="temp">MAX TEMPERATURE: 22 <sup>o</sup>C</p>
+        <p class="temp">FEELS LIKE: {{feelsLike}} <sup>o</sup>C</p>
+        <p class="temp">MIN TEMPERATURE: {{tempMin}} <sup>o</sup>C</p>
+        <p class="temp">MAX TEMPERATURE: {{tempMax}} <sup>o</sup>C</p>
       </div>
 
-      <h1 id="currenttemp">21</h1>
+      <h1 id="currenttemp">{{temp}}</h1>
       <p id="calsius"><sup>o</sup>C</p>
 
       <div class="wind">
@@ -70,7 +70,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wind" viewBox="0 0 16 16">
           <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5zm-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2zM0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5z"/>
         </svg>
-        <p>6 meter / sec</p>
+        <p>{{windSpeed}} meter / sec</p>
       </div>  
 
     </div>
@@ -82,7 +82,6 @@
     </div>
     
     <div class="card">
-      <!-- Custom information -->
       <div class="about">
         <h2></h2>
         <p class="lead"></p>
@@ -91,78 +90,33 @@
       <!-- Canvas for Chart.js -->
       <canvas id="canvas"></canvas>
       
-      <!-- Custom Axis -->
+      <!-- Axis -->
       <div class="axis">
         <div class="tick">
-          MON
-          <span class="value value--this">24</span>
+          {{dates[0]}}
+          <span class="value value--this">{{averageTemps[0]}}</span>
           <span class="value value--prev"></span>
         </div>
         <div class="tick">
-          TUE
-          <span class="value value--this">18</span>
+          {{dates[1]}}
+          <span class="value value--this">{{averageTemps[1]}}</span>
           <span class="value value--prev"></span>
         </div>
         <div class="tick">
-          WED
-          <span class="value value--this">-10</span>
+          {{dates[2]}}
+          <span class="value value--this">{{averageTemps[2]}}</span>
           <span class="value value--prev"></span>
         </div>
         <div class="tick">
-          THU
-          <span class="value value--this">18</span>
+          {{dates[3]}}
+          <span class="value value--this">{{averageTemps[3]}}</span>
           <span class="value value--prev"></span>
         </div>
         <div class="tick">
-          FRI
-          <span class="value value--this">24</span>
+          {{dates[4]}}
+          <span class="value value--this">{{averageTemps[4]}}</span>
           <span class="value value--prev"></span>
         </div>
-        <div class="tick">
-          SAT
-          <span class="value value--this">36</span>
-          <span class="value value--prev"></span>
-        </div>
-        <div class="tick">
-          SUN
-          <span class="value value--this">28</span>
-          <span class="value value--prev"></span>
-        </div>
-        <!-- <div class="tick">
-          MON
-          <span class="value value--this">24</span>
-          <span class="value value--prev"></span>
-        </div>
-        <div class="tick">
-          TUE
-          <span class="value value--this">18</span>
-          <span class="value value--prev"></span>
-        </div>
-        <div class="tick">
-          WED
-          <span class="value value--this">16</span>
-          <span class="value value--prev"></span>
-        </div>
-        <div class="tick">
-          THU
-          <span class="value value--this">18</span>
-          <span class="value value--prev"></span>
-        </div>
-        <div class="tick">
-          FRI
-          <span class="value value--this">24</span>
-          <span class="value value--prev"></span>
-        </div>
-        <div class="tick">
-          SAT
-          <span class="value value--this">36</span>
-          <span class="value value--prev"></span>
-        </div>
-        <div class="tick">
-          SUN
-          <span class="value value--this">28</span>
-          <span class="value value--prev"></span>
-        </div> -->
       </div>
 
     </div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ForecastService } from './forecast.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { ForecastService } from './forecast.service';
 export class AppComponent {
   title = 'skycast-app';
 
-  constructor(private forecastService: ForecastService) {}
+  constructor() {}
 
   ngOnInit() { }
   
