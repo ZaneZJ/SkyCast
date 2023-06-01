@@ -1,7 +1,6 @@
 package com.skycast;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -15,9 +14,17 @@ import java.net.URL;
 @Component
 public class WeatherAPI {
 
+    public static final String LOCALHOST_IP = "0:0:0:0:0:0:0:1";
+    // Ideally this should be loaded as a secret, but since it's a free tier API Key,
+    // keeping it in plain text for easier testing
+    public static final String IP_LOCATOR_API_KEY = "0487008b2b2846b68c32ecc621d1aba5";
+    // Ideally this should be loaded as a secret, but since it's a free tier API Key,
+    // keeping it in plain text for easier testing
+    public static final String OPEN_WEATHER_MAP_API_KEY = "174fddb83a2b27fa3d7d4c23a4487f2a";
+
     public String getIPData(HttpServletRequest request) {
-        // Localhost cred -> 0:0:0:0:0:0:0:1
-        if(!request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")) {
+        // When invoking from localhost, it will always return the following IP -> 0:0:0:0:0:0:0:1
+        if(!request.getRemoteAddr().equals(LOCALHOST_IP)) {
             // If not on the localhost then would return the remote address
             // Of the user accessing on the browser
             return request.getRemoteAddr();
@@ -73,9 +80,8 @@ public class WeatherAPI {
     }
 
     public String getCity(String ipAddress) {
-        String apiKey = "0487008b2b2846b68c32ecc621d1aba5";
         try {
-            String url = "https://api.ipgeolocation.io/ipgeo?apiKey=" + apiKey + "&ip=" + ipAddress + "&fields=city";
+            String url = "https://api.ipgeolocation.io/ipgeo?apiKey=" + IP_LOCATOR_API_KEY + "&ip=" + ipAddress + "&fields=city";
 
             // Create URL object
             URL apiUrl = new URL(url);
@@ -100,6 +106,8 @@ public class WeatherAPI {
                 }
                 reader.close();
 
+                System.out.println(response);
+
                 // Parse the JSON response
                 JSONObject jsonResponse = new JSONObject(response.toString());
 
@@ -121,11 +129,8 @@ public class WeatherAPI {
         return null;
     }
 
-    public void getWeatherDataFromAPI(String city) {
-        // no CAPS for city value
-        // hardcoded from my user change 531af2461f50b8bd82618834fb7e0015 -> 174fddb83a2b27fa3d7d4c23a4487f2a
-        String apiKey = "531af2461f50b8bd82618834fb7e0015";
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city.toLowerCase() + "&appid=" + apiKey;
+    public String getWeatherDataFromAPI(String city) {
+        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city.toLowerCase() + "&appid=" + OPEN_WEATHER_MAP_API_KEY + "&units=metric";
 
         try {
             URL apiUrl = new URL(url);
@@ -143,7 +148,9 @@ public class WeatherAPI {
                 }
                 reader.close();
 
-                System.out.println(response.toString());
+                System.out.println(response);
+
+                return response.toString();
             } else {
                 System.out.println("Error: " + responseCode);
             }
@@ -151,13 +158,11 @@ public class WeatherAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public double[] getLatAndLonDataFromAPI(String city) {
-        // no CAPS for city value
-        // hardcoded from my user change 531af2461f50b8bd82618834fb7e0015 -> 174fddb83a2b27fa3d7d4c23a4487f2a
-        String apiKey = "531af2461f50b8bd82618834fb7e0015";
-        String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city.toLowerCase() + "&limit=1&appid=" + apiKey;
+    public String getCityJsonResponseFromAPI(String city) {
+        String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city.toLowerCase() + "&limit=1&appid=" + OPEN_WEATHER_MAP_API_KEY;
 
         try {
             URL apiUrl = new URL(url);
@@ -175,18 +180,9 @@ public class WeatherAPI {
                 }
                 reader.close();
 
-                // Parse JSON response
-                JSONArray jsonArray = new JSONArray(response.toString());
-                if (jsonArray.length() > 0) {
-                    JSONObject location = jsonArray.getJSONObject(0);
-                    double lat = location.getDouble("lat");
-                    double lon = location.getDouble("lon");
-                    System.out.println("Latitude: " + lat);
-                    System.out.println("Longitude: " + lon);
-                    // Read Forecast Data
-                    double[] latLonArray = {lat, lon};
-                    return latLonArray;
-                }
+                System.out.println(response);
+
+                return response.toString();
             } else {
                 System.out.println("Error: " + responseCode);
             }
@@ -197,10 +193,8 @@ public class WeatherAPI {
         return null;
     }
 
-    public void getForecastDataFromAPI16(double latitude, double longtitude) {
-        // api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
-        String apiKey = "531af2461f50b8bd82618834fb7e0015";
-        String url = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + latitude + "&lon=" + longtitude + "&cnt=16&appid=" + apiKey;
+    public String getForecastDataFromAPI(double latitude, double longtitude) {
+        String url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longtitude + "&appid=" + OPEN_WEATHER_MAP_API_KEY + "&units=metric";
 
         try {
             URL apiUrl = new URL(url);
@@ -218,7 +212,9 @@ public class WeatherAPI {
                 }
                 reader.close();
 
-                System.out.println(response.toString());
+                System.out.println(response);
+
+                return response.toString();
             } else {
                 System.out.println("Error: " + responseCode);
             }
@@ -226,37 +222,7 @@ public class WeatherAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void getForecastDataFromAPI(double latitude, double longtitude) {
-        // hardcoded from my user change 531af2461f50b8bd82618834fb7e0015 -> 174fddb83a2b27fa3d7d4c23a4487f2a
-        String apiKey = "531af2461f50b8bd82618834fb7e0015";
-        String url = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longtitude + "&appid=" + apiKey + "&units=metric";
-
-        try {
-            URL apiUrl = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
-            connection.setRequestMethod("GET");
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line;
-                StringBuilder response = new StringBuilder();
-
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                reader.close();
-
-                System.out.println(response.toString());
-            } else {
-                System.out.println("Error: " + responseCode);
-            }
-            connection.disconnect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return null;
     }
 
 }
