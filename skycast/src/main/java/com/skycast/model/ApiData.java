@@ -1,18 +1,16 @@
 package com.skycast.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
+@AllArgsConstructor
 public class ApiData {
 
     City city;
     Weather weather;
-    Forecast forecast;
-
-    public ApiData(City city, Weather weather, Forecast forecast) {
-        this.city = city;
-        this.weather = weather;
-        this.forecast = forecast;
-    }
+    List<Forecast> forecastArray;
 
 }
